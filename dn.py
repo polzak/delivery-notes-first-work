@@ -2,9 +2,10 @@ import os
 
 def getfiles():
     pdf_list = []
-    outer_list = [x[2] for x in os.walk(os.getcwd())] #walk all the files through all of the subfolders
-    for l in outer_list:
-        pdf_list = pdf_list + l #stretch the nested list
-    return [p for p in pdf_list if p.endswith('.pdf')]
-        
+    folder_list = [(x[0], x[2]) for x in os.walk(os.getcwd())] #x[0] is a subfolder, and x[2] is a list of files in it
+    for ft in folder_list:
+        pdf_list = pdf_list + [os.path.join(ft[0], f) for f in ft[1] if f.endswith('.pdf')]
+    return pdf_list
+
+
 print(getfiles())
